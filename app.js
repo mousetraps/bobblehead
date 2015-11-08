@@ -43,6 +43,7 @@ app.use(multer({
 // routes
 app.get('/', getIndex)
 app.get('/bobble', displayBobble)
+app.get('/bobble/:bobbleId', displayBobble);
 app.post('/api/photo', generateBobble)
 
 // spin up port
@@ -62,16 +63,25 @@ function generateBobble(req, res) {
         .then(generateBobblePermutations)
         .then(generateGif)
         .then(function() {
-            res.redirect('/bobble')
+            console.log('generate');
+            res.redirect(301, '/bobble/' + path.basename(imgSrc, path.extname(imgSrc)));
         })
 }
 
 function displayBobble(req, res) {
+    var myImg = 'myanimated.gif';
+    console.log(req.params['bobbleId'])
+    if (typeof req.params['bobbleId'] !== 'undefined') {
+        myImg = req.params['bobbleId'] + '.gif';
+    }
+    console.log('my image:', myImg);
+    // res.end('hello');
     res.render('index', {
         title: 'Bobblehead Generator',
-        message: 'Bobble!',
-        imgs: ['myanimated.gif']
+        location: "http://nyanit.com/" + req.get('host') + '/bobble/' + path.basename(myImg, path.extname(myImg)),
+        imgs: [myImg]
     });
+    // res.end('hello');
 }
 
 function detectFace() {
@@ -157,7 +167,7 @@ function generateGif() {
             delay: 500,
             quality: 10
         }))
-        .pipe(fs.createWriteStream('output/myanimated.gif'))
+        .pipe(fs.createWriteStream('output/' + path.basename(imgSrc, path.extname(imgSrc)) + '.gif'))
         .on('finish', function() {
             deferred.resolve();
         });

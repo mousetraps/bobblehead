@@ -3,6 +3,7 @@ extends layout
 block content
   div(style='background-color:white; padding:20px; opacity:0.9; width:400px')
     h1= title
+    p= location
     p Upload a picture of a head to get started!
 
     form(action='/api/photo' method='post' enctype="multipart/form-data")
