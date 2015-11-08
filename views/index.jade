@@ -1,14 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Upload a picture of a head to get started!
+  div(style='background-color:white; padding:20px; opacity:0.9; width:400px')
+    h1= title
+    p Upload a picture of a head to get started!
 
-  form(action='/api/photo' method='post' enctype="multipart/form-data")
-    input(type="file" name="userPhoto")
-    input(type="submit" value="Upload Image" name="submit")
-  div(style="margin-top:50px")
-    - var n = 0
-    while n < 20
-      img(src='#{imgs[0]}' dynsrc='#{imgs[0]}' loop='infinite')
-      - n++
+    form(action='/api/photo' method='post' enctype="multipart/form-data")
+      input(type="file" name="userPhoto")
+      input(type="submit" value="Upload Image" name="submit")
