@@ -14,5 +14,6 @@
     "png-file-stream": "^1.0.0",
     "project-oxford": "^0.2.2",
     "q": "^1.4.1"
-  }
+  },
+  "engines":{"node": "0.12.6"}
 }
