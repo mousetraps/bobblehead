@@ -25,6 +25,10 @@ if (fs.existsSync('output') === false) {
     fs.mkdirSync('output');
 }
 
+if (fs.existsSync('uploads') === false) {
+    fs.mkdirSync('uploads');
+}
+
 app.use(multer({
     storage: storage
 }).single('userPhoto'));
