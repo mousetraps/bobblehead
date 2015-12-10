@@ -3,10 +3,12 @@
     fs = require('fs'),
 
     bobble = require('./bobble.js');
+    
+var IS_NYAN = false;
 
 exports.getIndex = function (req, res) {
     var url = req.protocol + '://' + req.get('host') + req.originalUrl;
-    res.redirect('http://nyanit.com/' + url + 'bobble');
+    res.redirect((IS_NYAN ? 'http://nyanit.com/' : '') + url + 'bobble');
 }
 
 exports.generateBobble = function (req, res) {
